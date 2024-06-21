@@ -1,5 +1,5 @@
 # Nashville Housing Data
-This repository is a showcase of some data cleaning I did on a dataset I found on Kaggle using SQL
+This repository is a showcase of some data cleaning I did on the Nashville Housing dataset I found on Kaggle using SQL
 
 ## First Step of Cleaning Data
 While initially diagnosing this data, I noticed some duplicate Parcel IDs. Some of the Parcel IDs had an address and some didn't so in this case I joined the table with itself to check which were missing. 
