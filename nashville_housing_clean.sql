@@ -32,7 +32,7 @@ FROM nashville.nashville_housing;
 
 -- ADDING COLUMN FOR PROPERTY ADDRESS
 ALTER TABLE nashville_housing
-ADD Propperty_Address Nvarchar(255);
+ADD Property_Address Nvarchar(255);
 
 -- INSERTING DATA NEW STREET COLUMN
 UPDATE nashville_housing
@@ -111,6 +111,13 @@ DROP COLUMN PropertyAddress;
 
 ALTER TABLE nashville.nashville_housing
 DROP COLUMN OwnerAddress;
+---------------------------------------------------------------------------------------------------------------------
+-- RENAMING COLUMNS I MISSPELLED
+ALTER TABLE nashville.nashville_housing
+RENAME COLUMN Propperty_Address TO Property_Address;
+
+ALTER TABLE nashville.nashville_housing
+RENAME COLUMN Propperty_City TO Property_City;
 
 Select *
 From nashville.nashville_housing;
