@@ -111,13 +111,31 @@ DROP COLUMN PropertyAddress;
 
 ALTER TABLE nashville.nashville_housing
 DROP COLUMN OwnerAddress;
----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- RENAMING COLUMNS I MISSPELLED
 ALTER TABLE nashville.nashville_housing
 RENAME COLUMN Propperty_Address TO Property_Address;
 
 ALTER TABLE nashville.nashville_housing
 RENAME COLUMN Propperty_City TO Property_City;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- CHANGING DATE FORMAT
+update nashville_housing
+set SaleDate = str_to_date(SaleDate, "%M%d,%Y");
 
+alter table nashville_housing
+modify SaleDate date;
 Select *
 From nashville.nashville_housing;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- PARTITION SALES DATA BY CITY OF PROPERTY AND THEN RANKING USING WINDOW FUNCTINOS
+SELECT UniqueID,
+		LandUse, 
+        SalePrice,
+        Property_Address,
+        Property_City,
+        ROUND(AVG(SalePrice) OVER(PARTITION BY Property_City),2) AS avg_citySale,
+        RANK() OVER(ORDER BY SalePrice DESC) AS overall_rank,
+        RANK() OVER(PARTITION BY Property_City ORDER BY SalePrice DESC) AS rank_city
+FROM nashville.nashville_housing;
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
